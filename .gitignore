@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+
+# PyTorch
+*.pt
+*.pth
+
+# Data
+data/
+datasets/
+
+# Outputs
+outputs/
+logs/
+
+# Env
+.env
+.venv
+venv/
+conda/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/

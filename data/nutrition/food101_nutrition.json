@@ -1,0 +1,36 @@
+{
+  "apple_pie": { "calories_kcal": 237, "protein_g": 2.4, "fat_g": 11.0, "carbs_g": 34.0 },
+  "baby_back_ribs": { "calories_kcal": 292, "protein_g": 21.0, "fat_g": 24.0, "carbs_g": 0.0 },
+  "baklava": { "calories_kcal": 428, "protein_g": 6.0, "fat_g": 25.0, "carbs_g": 45.0 },
+  "beef_carpaccio": { "calories_kcal": 126, "protein_g": 20.0, "fat_g": 5.0, "carbs_g": 1.0 },
+  "beef_tartare": { "calories_kcal": 195, "protein_g": 19.0, "fat_g": 14.0, "carbs_g": 2.0 },
+  "beet_salad": { "calories_kcal": 120, "protein_g": 2.5, "fat_g": 6.0, "carbs_g": 15.0 },
+  "beignets": { "calories_kcal": 410, "protein_g": 6.0, "fat_g": 25.0, "carbs_g": 42.0 },
+  "bibimbap": { "calories_kcal": 214, "protein_g": 8.0, "fat_g": 7.0, "carbs_g": 30.0 },
+  "bread_pudding": { "calories_kcal": 290, "protein_g": 6.0, "fat_g": 12.0, "carbs_g": 39.0 },
+  "breakfast_burrito": { "calories_kcal": 305, "protein_g": 13.0, "fat_g": 15.0, "carbs_g": 29.0 },
+
+  "cheesecake": { "calories_kcal": 321, "protein_g": 5.5, "fat_g": 23.0, "carbs_g": 25.0 },
+  "chocolate_cake": { "calories_kcal": 371, "protein_g": 5.0, "fat_g": 15.0, "carbs_g": 58.0 },
+  "churros": { "calories_kcal": 447, "protein_g": 6.0, "fat_g": 25.0, "carbs_g": 49.0 },
+
+  "french_fries": { "calories_kcal": 312, "protein_g": 3.4, "fat_g": 15.0, "carbs_g": 41.0 },
+  "fried_rice": { "calories_kcal": 186, "protein_g": 5.5, "fat_g": 6.0, "carbs_g": 27.0 },
+  "fried_calamari": { "calories_kcal": 175, "protein_g": 11.0, "fat_g": 9.0, "carbs_g": 13.0 },
+
+  "hamburger": { "calories_kcal": 295, "protein_g": 17.0, "fat_g": 14.0, "carbs_g": 24.0 },
+  "hot_dog": { "calories_kcal": 290, "protein_g": 10.0, "fat_g": 26.0, "carbs_g": 4.0 },
+  "pizza": { "calories_kcal": 266, "protein_g": 11.0, "fat_g": 10.0, "carbs_g": 33.0 },
+
+  "ice_cream": { "calories_kcal": 207, "protein_g": 3.5, "fat_g": 11.0, "carbs_g": 24.0 },
+  "tiramisu": { "calories_kcal": 283, "protein_g": 6.0, "fat_g": 17.0, "carbs_g": 28.0 },
+  "waffles": { "calories_kcal": 291, "protein_g": 6.5, "fat_g": 14.0, "carbs_g": 33.0 },
+
+  "sushi": { "calories_kcal": 130, "protein_g": 6.0, "fat_g": 2.0, "carbs_g": 24.0 },
+  "sashimi": { "calories_kcal": 127, "protein_g": 20.0, "fat_g": 4.0, "carbs_g": 0.0 },
+  "ramen": { "calories_kcal": 436, "protein_g": 10.0, "fat_g": 18.0, "carbs_g": 54.0 },
+
+  "salad": { "calories_kcal": 80, "protein_g": 2.0, "fat_g": 3.0, "carbs_g": 10.0 },
+
+  "pho": { "calories_kcal": 97, "protein_g": 7.0, "fat_g": 3.0, "carbs_g": 52.0 }
+}

@@ -1,0 +1,26 @@
+seed: 42
+data_dir: ./data
+num_workers: 4
+
+dataset: food101
+num_classes: 101
+image_size: 224
+
+model: convnext_tiny   # torchvision 内置
+pretrained: true
+
+batch_size: 64
+epochs: 15
+lr: 3e-4
+weight_decay: 0.05
+
+optimizer: adamw
+label_smoothing: 0.1
+
+cutmix_prob: 0.5     # 每个 batch 有 50% 概率用 CutMix
+cutmix_alpha: 1.0    # Beta 分布参数（常用 1.0）
+
+
+device: auto  # auto/cuda/cpu
+
+output_dir: ./outputs/exp_food101_baseline
