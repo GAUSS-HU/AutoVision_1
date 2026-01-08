@@ -9,6 +9,7 @@ from PIL import Image
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import json
+from agent.multimodal_agent import multimodal_decision_agent
 
 
 
@@ -61,6 +62,8 @@ def predict(image_path, model, classes, device, image_size, topk=5):
 def draw_predictions_with_nutrition(
     image_path,
     results,
+    final_class,
+    agent_reason,
     nutrition,
     save_path,
     font_size=60,
@@ -76,13 +79,24 @@ def draw_predictions_with_nutrition(
     except IOError:
         font = ImageFont.load_default()
 
-    # ---------- 组织文本 ----------
-    lines = ["Prediction:"]
+    # -------- 组织文本内容 --------
+    lines = []
+    # Prediction
+    lines.append("Prediction:")
     for i, (cls, p) in enumerate(results, 1):
-        lines.append(f"{i}. {cls} ({p:.2f})")
+        mark = "  ← final" if cls == final_class else ""
+        lines.append(f"{i}. {cls} ({p:.2f}){mark}")
 
+    # Agent decision
+    lines.append("")
+    lines.append("Agent Decision:")
+    lines.append(f"{final_class}")
+    lines.append(f"Reason: {agent_reason}")
+
+    # Nutrition
     lines.append("")
     lines.append("Nutrition:")
+
 
     if nutrition is not None:
         # nutrition 是 dict
@@ -149,7 +163,16 @@ def main():
         topk=args.topk
     )
 
-    food = results[0][0]  # Top-1 类别
+
+    # ---------- Agent 决策 ----------
+    final_class, agent_reason = multimodal_decision_agent(
+        image_path=args.image,
+        cls_results=results
+    )
+    food = final_class
+    print(f"\nAgent decision: {food}")
+    print(f"Agent reason: {agent_reason}")
+
     nutrition = nutrition_db.get(food, None)
     if nutrition:
         print("\nNutrition (approx.):")
@@ -169,12 +192,14 @@ def main():
         draw_predictions_with_nutrition(
             image_path=args.image,
             results=results,
+            final_class=final_class,
+            agent_reason=agent_reason,
             nutrition=nutrition,
             save_path=out_img,
             font_size=60
         )
 
-        print(f"\nSaved visualization to: {out_img}")
+    print(f"\nSaved visualization to: {out_img}")
 
 
 if __name__ == "__main__":
