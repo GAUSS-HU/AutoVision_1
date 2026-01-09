@@ -5,11 +5,21 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from api.service import InferenceService, save_upload
 from agent.nutrition_recommendation_agent import nutrition_recommendation_agent
 
+from fastapi.middleware.cors import CORSMiddleware
+
 
 # ---- 重要：避免你遇到的 OpenMP 冲突 ----
 os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
 
 app = FastAPI(title="AutoVision Food Agent Demo")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],      # 开发阶段直接 *
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # ====== 这里改成你自己的路径 ======
 CKPT_PATH = "outputs/exp_food101_baseline/best.pt"
