@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AutoVision Food Agent</title>
+  <style>
+    body { font-family: Arial; max-width: 1000px; margin: 30px auto; }
+    .card { border: 1px solid #ddd; border-radius: 10px; padding: 12px; margin: 12px 0; }
+    .title { font-weight: bold; margin-bottom: 6px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 6px; }
+    th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+    .warn { color: #b00; }
+    .ok { color: #070; }
+  </style>
+</head>
+<body>
+
+<h2>AutoVision: Food Recognition + Agent Recommendation</h2>
+
+<input id="files" type="file" multiple accept="image/*">
+<button type="button" onclick="run()">Analyze</button>
+
+
+<p id="status"></p>
+
+<div id="summary"></div>
+<div id="results"></div>
+
+<script>
+async function run() {
+  const files = document.getElementById("files").files;
+  if (files.length === 0) {
+    alert("Please select at least one image.");
+    return;
+  }
+
+  document.getElementById("status").textContent = "Analyzing...";
+  document.getElementById("results").innerHTML = "";
+  document.getElementById("summary").innerHTML = "";
+
+  const fd = new FormData();
+  for (const f of files) {
+    fd.append("files", f);   // 必须是 files
+  }
+
+  const res = await fetch("http://127.0.0.1:8000/predict_batch", {
+    method: "POST",
+    body: fd
+  });
+
+  const data = await res.json();
+  document.getElementById("status").textContent = "";
+
+  renderSummary(data.recommendation);
+  renderItems(data.items);
+}
+
+function renderSummary(rec) {
+  const t = rec.total_nutrition;
+  let html = `
+    <div class="card">
+      <div class="title">Nutrition Summary (All Images)</div>
+      <div>Calories: ${t.calories_kcal.toFixed(1)} kcal</div>
+      <div>Protein: ${t.protein_g.toFixed(1)} g</div>
+      <div>Fat: ${t.fat_g.toFixed(1)} g</div>
+      <div>Carbs: ${t.carbs_g.toFixed(1)} g</div>
+
+      <h4>Recommendations</h4>
+      <ul>${rec.recommendations.map(x => `<li class="ok">${x}</li>`).join("")}</ul>
+
+      <h4>Warnings</h4>
+      <ul>${(rec.warnings.length ? rec.warnings : ["None"])
+        .map(x => `<li class="warn">${x}</li>`).join("")}</ul>
+    </div>
+  `;
+  document.getElementById("summary").innerHTML = html;
+}
+
+function renderItems(items) {
+  const container = document.getElementById("results");
+
+  items.forEach((it, idx) => {
+    const topkRows = it.topk.map(
+      (x, i) => `<tr><td>${i+1}</td><td>${x[0]}</td><td>${x[1].toFixed(4)}</td></tr>`
+    ).join("");
+
+    let nutritionHTML = "<div class='warn'>No nutrition data available.</div>";
+    if (it.nutrition) {
+      const n = it.nutrition;
+      nutritionHTML = `
+        <div>Calories: ${n.calories_kcal} kcal</div>
+        <div>Protein: ${n.protein_g} g</div>
+        <div>Fat: ${n.fat_g} g</div>
+        <div>Carbs: ${n.carbs_g} g</div>
+      `;
+    }
+
+    const card = `
+      <div class="card">
+        <div class="title">Image ${idx+1}</div>
+        <div><b>Final (Agent):</b> ${it.final_class}</div>
+        <div><b>Agent Reason:</b> ${it.agent_reason}</div>
+
+        <h4>Nutrition</h4>
+        ${nutritionHTML}
+
+        <h4>Top-5 Predictions</h4>
+        <table>
+          <tr><th>#</th><th>Class</th><th>Prob</th></tr>
+          ${topkRows}
+        </table>
+      </div>
+    `;
+    container.insertAdjacentHTML("beforeend", card);
+  });
+}
+</script>
+
+</body>
+</html>
