@@ -63,7 +63,7 @@ def multimodal_decision_agent(
     candidates = [c for c, _ in cls_results[:topk_clip]]
     clip_scores = clip_verify(image_path, candidates)
 
-    # 4) CLIP 只当“辅助裁决”：除非它对某个候选明显更偏好，否则不推翻 top1
+    # 4) 除非它对某个候选明显更偏好，否则不推翻 top1
     best_idx = int(clip_scores.argmax())
     best_cls = candidates[best_idx]
 
