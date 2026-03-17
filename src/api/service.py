@@ -8,11 +8,10 @@ import torch.nn as nn
 from torchvision import transforms, models
 from PIL import Image
 
-# 你的 Agent
+# Agent
 from agent.multimodal_agent import multimodal_decision_agent
 
-# ---- 重要：OpenMP 冲突处理（你之前遇到的那个）----
-# 放在 import clip / torch 之后也行，但最好在最早处确保有值
+
 os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
 
 
