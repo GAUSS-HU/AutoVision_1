@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 
-# ====== 这里改成你自己的路径 ======
+
 CKPT_PATH = "outputs/exp_food101_baseline/best.pt"
 DATA_DIR = "data"
 NUTRITION_JSON = "data/nutrition/food101_nutrition.json"
